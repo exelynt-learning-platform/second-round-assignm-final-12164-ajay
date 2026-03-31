@@ -2,10 +2,15 @@ package com.ecommerce.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.util.*;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "carts")
 @Data
+@NoArgsConstructor
 public class Cart {
 
     @Id
@@ -15,6 +20,6 @@ public class Cart {
     @OneToOne
     private User user;
 
-    @ManyToMany
-    private List<Product> products = new ArrayList<>();
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItem> items = new ArrayList<>();
 }

@@ -1,5 +1,7 @@
 package com.ecommerce.backend.entity;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,7 +15,8 @@ public class Product {
 
     private String name;
     private String description;
-    private double price;
+    @Column(nullable = false)
+    private BigDecimal price;
     private int stock;
     private String imageUrl;
 }

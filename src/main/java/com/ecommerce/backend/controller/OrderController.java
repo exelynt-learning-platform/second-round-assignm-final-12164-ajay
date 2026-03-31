@@ -4,6 +4,7 @@ import com.ecommerce.backend.entity.Order;
 import com.ecommerce.backend.entity.User;
 import com.ecommerce.backend.repository.UserRepository;
 import com.ecommerce.backend.service.OrderService;
+import com.stripe.exception.StripeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +16,13 @@ public class OrderController {
     private final OrderService orderService;
     private final UserRepository userRepository;
 
-    // 🔹 Create order from cart
     @PostMapping("/create")
-    public Order createOrder(@RequestParam String username) {
+    public Order createOrder(@RequestParam String username,
+                             @RequestParam String shippingDetails) throws StripeException {
 
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return orderService.createOrder(user);
+        return orderService.createOrder(user, shippingDetails);
     }
 }

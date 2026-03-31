@@ -1,12 +1,16 @@
 package com.ecommerce.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import java.util.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "orders")
-@Data
 public class Order {
 
     @Id
@@ -19,7 +23,9 @@ public class Order {
     @ManyToMany
     private List<Product> products;
 
-    private double totalPrice;
+    private BigDecimal totalPrice;
 
-    private String status;
+    private String shippingDetails;
+
+    private String paymentStatus; // e.g., PENDING, PAID, FAILED
 }

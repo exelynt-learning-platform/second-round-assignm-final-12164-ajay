@@ -15,7 +15,6 @@ public class CartController {
     private final CartService cartService;
     private final UserRepository userRepository;
 
-    // 🔹 Add product to cart
     @PostMapping("/add/{productId}")
     public Cart addToCart(@PathVariable Long productId,
                           @RequestParam String username) {
@@ -24,5 +23,15 @@ public class CartController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         return cartService.addToCart(user, productId);
+    }
+
+    @DeleteMapping("/remove/{productId}")
+    public void removeFromCart(@PathVariable Long productId,
+                               @RequestParam String username) {
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        cartService.removeProductFromCart(user, productId);
     }
 }

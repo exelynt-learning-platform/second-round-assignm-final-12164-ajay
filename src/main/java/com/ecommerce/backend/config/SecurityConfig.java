@@ -21,7 +21,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Updated for Spring Security 6+
+            .csrf(csrf -> csrf.disable()) // disable CSRF for REST APIs
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated()
