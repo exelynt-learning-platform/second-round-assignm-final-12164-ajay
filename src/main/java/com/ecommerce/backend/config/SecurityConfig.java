@@ -45,10 +45,15 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of(
+                "http://localhost:3000",
+                "http://localhost:4200"
+            ));
 
-        config.setAllowedOrigins(List.of("*"));
+         
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-        config.setAllowedHeaders(List.of("*"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
