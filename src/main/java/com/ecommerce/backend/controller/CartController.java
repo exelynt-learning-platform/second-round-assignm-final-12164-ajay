@@ -27,15 +27,4 @@ public class CartController {
 
         return cartService.addToCart(user, productId);
     }
-
-    @DeleteMapping("/remove/{productId}")
-    public void removeFromCart(@PathVariable Long productId) {
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        cartService.removeProductFromCart(user, productId);
-    }
 }

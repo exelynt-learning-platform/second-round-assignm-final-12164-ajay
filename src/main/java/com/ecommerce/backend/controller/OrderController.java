@@ -20,7 +20,6 @@ public class OrderController {
     @PostMapping("/create")
     public Order createOrder(@RequestParam String shippingDetails) throws StripeException {
 
-        
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User user = userRepository.findByUsername(username)
