@@ -5,6 +5,7 @@ import com.ecommerce.backend.entity.User;
 import com.ecommerce.backend.repository.UserRepository;
 import com.ecommerce.backend.service.CartService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,8 +17,10 @@ public class CartController {
     private final UserRepository userRepository;
 
     @PostMapping("/add/{productId}")
-    public Cart addToCart(@PathVariable Long productId,
-                          @RequestParam String username) {
+    public Cart addToCart(@PathVariable Long productId) {
+
+         
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -26,8 +29,9 @@ public class CartController {
     }
 
     @DeleteMapping("/remove/{productId}")
-    public void removeFromCart(@PathVariable Long productId,
-                               @RequestParam String username) {
+    public void removeFromCart(@PathVariable Long productId) {
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
